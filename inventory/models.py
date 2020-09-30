@@ -12,7 +12,7 @@ class Category(models.Model):
     class Meta:
         verbose_name_plural = "categories"
 
-    name = models.CharField(max_length=200)
+    name = models.CharField(max_length=200, unique=True)
 
     def __str__(self):
         return self.name
@@ -22,26 +22,26 @@ class SubCategory(models.Model):
         verbose_name_plural = "SubCategories"
 
     parent_category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True, blank=True, related_name='sub_categories')
-    name = models.CharField(max_length=200)
+    name = models.CharField(max_length=200, unique=True)
 
     def __str__(self):
         return self.name
 
 class UnitGroup(models.Model):
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=50, unique=True)
 
     def __str__(self):
         return self.name
 
 class Unit(models.Model):
     unit_group = models.ForeignKey(UnitGroup, on_delete = models.CASCADE, null=False, blank=False, related_name='units')
-    name = models.CharField(max_length=200)
+    name = models.CharField(max_length=200, unique=True)
 
     def __str__(self):
         return self.name
 
 class Item(models.Model):
-    name = models.CharField(max_length=200)
+    name = models.CharField(max_length=200, unique=True)
     decs = models.CharField(max_length=250)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=False, blank=False, related_name='categories')
     sub_categories = models.ForeignKey(SubCategory, on_delete=models.CASCADE, null=True, blank=True, related_name='sub_categories')
