@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'djoser',
     'corsheaders',
-
+    
     # My Apps
     'accounts',
     'inventory',
@@ -52,7 +52,6 @@ INSTALLED_APPS = [
 ]
 
 X_FRAME_OPTIONS='SAMEORIGIN' # only if django version >= 3.0
-
 
 MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',

@@ -7,6 +7,7 @@ from django.conf import settings
 from django.db.models import Sum
 from django.core.validators import MinValueValidator
 from django.core.exceptions import ValidationError
+from six import python_2_unicode_compatible
 # Create your models here.
 class Category(models.Model):
     class Meta:
