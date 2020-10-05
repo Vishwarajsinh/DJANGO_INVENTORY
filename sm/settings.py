@@ -40,12 +40,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'inventory',
-    'accounts',
     'rest_framework',
     'rest_framework.authtoken',
     'djoser',
     'corsheaders',
+    'drf_yasg',
+
+    # My Apps
+    'accounts',
+    'inventory',
+
 ]
 
 X_FRAME_OPTIONS='SAMEORIGIN' # only if django version >= 3.0

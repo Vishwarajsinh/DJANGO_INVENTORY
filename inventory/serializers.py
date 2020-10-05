@@ -58,7 +58,6 @@ class PurchaseBillSerializer(serializers.ModelSerializer):
         fields = [
             "bill_no",
             "supplier",
-            "bill_amount",
             "purchased_at",
             "bill_items",
         ]
