@@ -26,7 +26,7 @@ SECRET_KEY = 'pp9lbxgz%z%q3ph(z6#r-mx0kg-ognv24m*p2*uw#77l7t=ct%'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['inventory999.herokuapp.com', '127.0.0.1']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
