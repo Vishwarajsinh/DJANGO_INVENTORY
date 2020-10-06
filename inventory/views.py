@@ -4,11 +4,6 @@ from rest_framework.permissions import IsAuthenticated
 from .serializers import *
 from .models import *
 
-class SubCategoryViewSet(viewsets.ModelViewSet):
-    permission_classes = (IsAuthenticated,)
-
-    queryset = SubCategory.objects.all()
-    serializer_class = SubCategorySerializer
 
 class CategoryViewSet(viewsets.ModelViewSet):
     permission_classes = (IsAuthenticated,)

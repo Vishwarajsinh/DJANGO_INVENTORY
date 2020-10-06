@@ -20,7 +20,6 @@ class ItemAdmin(admin.ModelAdmin):
         "name",
         "decs",
         "category",
-        "sub_categories",
         "current_stock",
         "created_at",
     ]
@@ -100,7 +99,6 @@ class UnitAdmin(admin.ModelAdmin):
 
 
 admin.site.register( Category ),
-admin.site.register( SubCategory ),
 admin.site.register( UnitGroup, UnitGroupAdmin ),
 admin.site.register( Unit, UnitAdmin ),
 admin.site.register( Item, ItemAdmin ),

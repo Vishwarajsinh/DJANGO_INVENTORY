@@ -18,16 +18,6 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
-class SubCategory(models.Model):
-    class Meta:
-        verbose_name_plural = "SubCategories"
-
-    parent_category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True, blank=True, related_name='sub_categories')
-    name = models.CharField(max_length=200, unique=True)
-
-    def __str__(self):
-        return self.name
-
 class UnitGroup(models.Model):
     name = models.CharField(max_length=50, unique=True)
 
@@ -45,7 +35,6 @@ class Item(models.Model):
     name = models.CharField(max_length=200, unique=True)
     decs = models.CharField(max_length=250)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=False, blank=False, related_name='categories')
-    sub_categories = models.ForeignKey(SubCategory, on_delete=models.CASCADE, null=True, blank=True, related_name='sub_categories')
     current_stock = models.PositiveIntegerField(editable=False, blank=True, default = 0, validators=[MinValueValidator(0)])
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

@@ -3,8 +3,8 @@ from django.urls import path, include
 from rest_framework import routers
 from .views import *
 
+
 router = routers.SimpleRouter()
-router.register(r'sub_categories', SubCategoryViewSet)
 router.register(r'categories', CategoryViewSet)
 router.register(r'units_groups', UnitGroupViewSet)
 router.register(r'units', UnitViewSet)
