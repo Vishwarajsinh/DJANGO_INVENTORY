@@ -4,7 +4,6 @@ from rest_framework.permissions import IsAuthenticated
 from .serializers import *
 from .models import *
 
-
 class CategoryViewSet(viewsets.ModelViewSet):
     permission_classes = (IsAuthenticated,)
 

@@ -35,8 +35,7 @@ class ItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = Item
         fields = [
-            "name", "decs", "category",
-            "sub_categories", "current_stock", "created_at", "updated_at", "item_detail",
+            "name", "decs", "category", "current_stock", "created_at", "updated_at", "item_detail",
         ]
 
 class PurchaseOrderItemSerializer(serializers.ModelSerializer):
