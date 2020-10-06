@@ -25,9 +25,19 @@ class UnitGroupSerializer(serializers.ModelSerializer):
         ]
 
 class ItemDetailSerializer(serializers.ModelSerializer):
+
+    categories = CategorySerializer(many = True, read_only=True)
+
     class Meta:
         model = ItemDetails
-        fields = '__all__'
+        fields = [
+            'name',
+            'decs',
+            'current_stock',
+            'created_at',
+            'updated_at',
+            'categories',
+        ]
 
 class ItemSerializer(serializers.ModelSerializer):
     item_detail = ItemDetailSerializer(many = True, read_only=True)
