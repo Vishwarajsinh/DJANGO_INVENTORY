@@ -23,6 +23,7 @@ class ItemDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = ItemDetails
         fields = [
+            'id',
             'name',
             'decs',
             'current_stock',
@@ -37,7 +38,7 @@ class ItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = Item
         fields = [
-            "name", "decs", "category", "current_stock", "created_at", "updated_at", "item_detail",
+            "id", "name", "decs", "category", "current_stock", "created_at", "updated_at", "item_detail",
         ]
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -46,7 +47,7 @@ class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
         fields = [
-            'name', 'items',
+           'id', 'name', 'items',
         ]
 
 class PurchaseOrderItemSerializer(serializers.ModelSerializer):
