@@ -23,6 +23,9 @@ class ItemAdmin(admin.ModelAdmin):
         "current_stock",
         "created_at",
     ]
+    list_filter = [
+        "category",
+    ]
 
 class PurchaseOrderAdmin(admin.TabularInline):
     model = PurchaseOrderItem

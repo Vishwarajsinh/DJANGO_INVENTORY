@@ -34,7 +34,7 @@ class Unit(models.Model):
 class Item(models.Model):
     name = models.CharField(max_length=200, unique=True)
     decs = models.CharField(max_length=250, default= "", blank=True)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, null=False, blank=False, related_name='categories')
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, null=False, blank=False, related_name='items')
     current_stock = models.PositiveIntegerField(editable=False, blank=True, default = 0, validators=[MinValueValidator(0)])
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

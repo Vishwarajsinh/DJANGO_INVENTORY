@@ -2,13 +2,7 @@ from rest_framework import serializers
 
 from .models import *
 
-class CategorySerializer(serializers.ModelSerializer):
 
-    class Meta:
-        model = Category
-        fields = [
-            'name'
-        ]
 
 class UnitSerializer(serializers.ModelSerializer):
     class Meta:
@@ -26,8 +20,6 @@ class UnitGroupSerializer(serializers.ModelSerializer):
 
 class ItemDetailSerializer(serializers.ModelSerializer):
 
-    categories = CategorySerializer(many = True, read_only=True)
-
     class Meta:
         model = ItemDetails
         fields = [
@@ -36,8 +28,8 @@ class ItemDetailSerializer(serializers.ModelSerializer):
             'current_stock',
             'created_at',
             'updated_at',
-            'categories',
         ]
+
 
 class ItemSerializer(serializers.ModelSerializer):
     item_detail = ItemDetailSerializer(many = True, read_only=True)
@@ -46,6 +38,15 @@ class ItemSerializer(serializers.ModelSerializer):
         model = Item
         fields = [
             "name", "decs", "category", "current_stock", "created_at", "updated_at", "item_detail",
+        ]
+
+class CategorySerializer(serializers.ModelSerializer):
+    items = ItemSerializer(many = True, read_only=True)
+
+    class Meta:
+        model = Category
+        fields = [
+            'name', 'items',
         ]
 
 class PurchaseOrderItemSerializer(serializers.ModelSerializer):
