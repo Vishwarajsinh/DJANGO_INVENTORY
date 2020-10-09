@@ -20,10 +20,12 @@ class UnitGroupSerializer(serializers.ModelSerializer):
 
 
 class ItemSerializer(serializers.ModelSerializer):
+    unit = serializers.StringRelatedField()
+    category = serializers.StringRelatedField()
     class Meta:
         model = Item
         fields = [
-            "id", "name", "decs", "category", "current_stock", "created_at", "updated_at",
+            "id", "name", "decs", "category", "current_stock", "unit", "created_at", "updated_at",
         ]
 
 class CategorySerializer(serializers.ModelSerializer):
