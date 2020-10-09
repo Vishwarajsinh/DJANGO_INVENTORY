@@ -3,24 +3,13 @@ from .models import *
 
 # Register your models here.
 
-class ItemDetailAdmin(admin.TabularInline):
-    model = ItemDetails
-    list_display = [
-        "item_id",
-        "unit_group",
-        "unit",
-        "size",
-        "unit_price",
-    ]
-    readonly_fields = ["stock",]
-
 class ItemAdmin(admin.ModelAdmin):
-    inlines = (ItemDetailAdmin,)
     list_display = [
         "name",
         "decs",
         "category",
         "current_stock",
+        "unit",
         "created_at",
     ]
     list_filter = [

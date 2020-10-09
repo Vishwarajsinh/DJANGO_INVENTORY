@@ -36,6 +36,7 @@ class Item(models.Model):
     decs = models.CharField(max_length=250, default= "", blank=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=False, blank=False, related_name='items')
     current_stock = models.PositiveIntegerField(editable=False, blank=True, default = 0, validators=[MinValueValidator(0)])
+    unit = models.ForeignKey(Unit, on_delete=models.CASCADE, null=False, blank=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -44,21 +45,6 @@ class Item(models.Model):
     def __str__(self):
         return self.name
 
-
-class ItemDetails(models.Model):
-    item = models.ForeignKey(Item, on_delete=models.CASCADE, null=False, blank=False, related_name='item_detail')
-    unit_group = models.ForeignKey(UnitGroup, on_delete=models.CASCADE, null=False, blank=False)
-    unit = models.ForeignKey(Unit, on_delete=models.CASCADE, null=False, blank=False)
-    size = models.FloatField(default=0.0)
-    stock = models.PositiveIntegerField(editable=False, blank=True, default = 0, validators=[MinValueValidator(0)])
-
-    def __str__(self):
-        # pylint: disable=E1101
-        name = self.item.name
-        size = self.size
-        stock = self.stock
-        unit = self.unit
-        return f'{name} | Size: {size} {unit} | Qty: {stock}'
 
 # autogenerate purchase bill no
 def purchase_bill_number():
@@ -84,7 +70,6 @@ class PurchaseBill(models.Model):
 class PurchaseOrderItem(models.Model):
     bill_no = models.ForeignKey(PurchaseBill, on_delete=models.CASCADE, related_name = "bill_items")
     category = models.ForeignKey(Item, on_delete=models.CASCADE, null=False, blank=False)
-    sub_category = models.ForeignKey(ItemDetails, on_delete=models.CASCADE, null=True, blank=True)
     quantity = models.IntegerField()
     mrp_per_unit = models.IntegerField(default=0)
     
@@ -115,7 +100,6 @@ class IssueBill(models.Model):
 class IssueOrderItem(models.Model):
     bill_no = models.ForeignKey(IssueBill, on_delete=models.CASCADE, related_name = "issue_items")
     category = models.ForeignKey(Item, on_delete=models.CASCADE, null=False, blank=False)
-    sub_category = models.ForeignKey(ItemDetails, on_delete=models.CASCADE, null=True, blank=True)
     quantity = models.IntegerField()
     
     def clean(self):
@@ -135,7 +119,6 @@ def update_item_stock(sender, **kwargs):
     po_item = kwargs['instance']
     if po_item.pk:
         Item.objects.filter(pk = po_item.category_id).update(current_stock = F('current_stock') + po_item.quantity)
-        ItemDetails.objects.filter(pk = po_item.sub_category_id).update(stock = F('stock') + po_item.quantity)
         
 
 @receiver(post_save, sender = IssueOrderItem, dispatch_uid = "issue_item_stock")
@@ -143,6 +126,5 @@ def issue_item_stock(sender, **kwargs):
     io_item = kwargs['instance']
     if io_item.pk: 
         Item.objects.filter(pk = io_item.category_id).update(current_stock = F('current_stock') - io_item.quantity)
-        ItemDetails.objects.filter(pk = io_item.sub_category_id).update(stock = F('stock') - io_item.quantity)
 
 

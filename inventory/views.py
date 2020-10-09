@@ -22,12 +22,6 @@ class UnitGroupViewSet(viewsets.ModelViewSet):
     queryset = UnitGroup.objects.all()
     serializer_class = UnitGroupSerializer
 
-class ItemDetailViewSet(viewsets.ModelViewSet):
-    permission_classes = (IsAuthenticated,)
-
-    queryset = ItemDetails.objects.all()
-    serializer_class = ItemDetailSerializer
-
 class ItemViewSet(viewsets.ModelViewSet):
     permission_classes = (IsAuthenticated,)
 
