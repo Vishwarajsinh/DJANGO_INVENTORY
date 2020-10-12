@@ -59,7 +59,7 @@ def purchase_bill_number():
 
 class PurchaseBill(models.Model):
     bill_no = models.CharField(max_length=500, default=purchase_bill_number, null=True, blank=True, unique=True)
-    supplier = models.CharField(max_length=50)
+    notes = models.CharField(max_length=255, null=True, blank=True)
     purchased_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

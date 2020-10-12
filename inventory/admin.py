@@ -39,7 +39,7 @@ class PurchaseBillAdmin(admin.ModelAdmin):
     inlines = (PurchaseOrderAdmin, )
     list_display = [
         "bill_no",
-        "supplier",
+        "notes",
         "get_total",
         "purchased_at",
     ]
