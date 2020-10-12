@@ -40,7 +40,12 @@ class CategorySerializer(serializers.ModelSerializer):
 class PurchaseOrderItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = PurchaseOrderItem
-        fields = '__all__'
+        fields = [
+            "bill_no",
+            "category",
+            "quantity",
+            "mrp_per_unit",
+        ]
 
 class PurchaseBillSerializer(serializers.ModelSerializer):
     bill_items = PurchaseOrderItemSerializer(many = True, read_only=True)
@@ -48,6 +53,7 @@ class PurchaseBillSerializer(serializers.ModelSerializer):
     class Meta:
         model = PurchaseBill
         fields = [
+            "id",
             "bill_no",
             "supplier",
             "purchased_at",

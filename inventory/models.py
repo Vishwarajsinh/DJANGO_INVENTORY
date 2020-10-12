@@ -71,7 +71,7 @@ class PurchaseOrderItem(models.Model):
     bill_no = models.ForeignKey(PurchaseBill, on_delete=models.CASCADE, related_name = "bill_items")
     category = models.ForeignKey(Item, on_delete=models.CASCADE, null=False, blank=False)
     quantity = models.IntegerField()
-    mrp_per_unit = models.IntegerField(default=0)
+    mrp_per_unit = models.IntegerField(null=False, blank=False)
     
 
     def __str__(self):
