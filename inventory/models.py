@@ -40,8 +40,6 @@ class Item(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    
-
     def __str__(self):
         return self.name
 
@@ -90,30 +88,24 @@ def issue_bill_number():
 
 class IssueBill(models.Model):
     bill_no = models.CharField(max_length=500, default=issue_bill_number, null=True, blank=True, unique=True)
-    issued_by = models.CharField(max_length=50)
+    #issued_by = models.CharField(max_length=50)
+
+    item = models.ForeignKey(Item, on_delete=models.CASCADE, null=False, blank=False)
+    quantity = models.IntegerField()
+    
     issued_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    def clean(self):
+        super().clean()
+        if self.item.current_stock < self.quantity:
+            raise ValidationError("Insufficient Stock!")
 
     def __str__(self):
         return self.bill_no
 
-class IssueOrderItem(models.Model):
-    bill_no = models.ForeignKey(IssueBill, on_delete=models.CASCADE, related_name = "issue_items")
-    category = models.ForeignKey(Item, on_delete=models.CASCADE, null=False, blank=False)
-    quantity = models.IntegerField()
-    
-    def clean(self):
-        super().clean()
-        if self.sub_category.stock < self.quantity:
-            raise ValidationError("Insufficient Stock!")
-
-    def __str__(self):
-        return self.category.name
 
 # Inventory update functions
-
-
-
 @receiver(post_save, sender = PurchaseOrderItem, dispatch_uid = "update_item_stock")
 def update_item_stock(sender, **kwargs):
     po_item = kwargs['instance']
@@ -121,10 +113,10 @@ def update_item_stock(sender, **kwargs):
         Item.objects.filter(pk = po_item.category_id).update(current_stock = F('current_stock') + po_item.quantity)
         
 
-@receiver(post_save, sender = IssueOrderItem, dispatch_uid = "issue_item_stock")
+@receiver(post_save, sender = IssueBill, dispatch_uid = "issue_item_stock")
 def issue_item_stock(sender, **kwargs):
     io_item = kwargs['instance']
     if io_item.pk: 
-        Item.objects.filter(pk = io_item.category_id).update(current_stock = F('current_stock') - io_item.quantity)
+        Item.objects.filter(pk = io_item.item_id).update(current_stock = F('current_stock') - io_item.quantity)
 
 

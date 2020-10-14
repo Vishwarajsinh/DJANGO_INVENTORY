@@ -11,7 +11,6 @@ router.register(r'units', UnitViewSet)
 router.register(r'items', ItemViewSet)
 router.register(r'po_items', PurchaseOrderItemViewSet)
 router.register(r'po_bill', PurchaseBillViewSet)
-router.register(r'io_items', IssueOrderItemViewSet)
 router.register(r'io_bill', IssueBillViewSet)
 
 # Wire up our API using automatic URL routing.

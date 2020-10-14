@@ -40,12 +40,6 @@ class PurchaseBillViewSet(viewsets.ModelViewSet):
     queryset = PurchaseBill.objects.all()
     serializer_class = PurchaseBillSerializer
 
-class IssueOrderItemViewSet(viewsets.ModelViewSet):
-    permission_classes = (IsAuthenticated,)
-
-    queryset = IssueOrderItem.objects.all()
-    serializer_class = IssueOrderItemSerializer
-
 class IssueBillViewSet(viewsets.ModelViewSet):
     permission_classes = (IsAuthenticated,)
 

@@ -56,30 +56,21 @@ class PurchaseBillAdmin(admin.ModelAdmin):
         return total_price
     # give the helper method a description to be displayed
     get_total.short_description = 'total'
-    
-class IssueOrderAdmin(admin.TabularInline):
-    model = IssueOrderItem
+
+class IssueBillAdmin(admin.ModelAdmin):
     list_display = [
-        "category",
-        "sub_category",
+        "bill_no",
+        "item",
         "quantity",
-        "issued_at",
-        "unit",
+        "issued_by",
+        "issued_at",   
     ]
     list_filter = [
-        "category",
+        "item",
         "issued_at",
     ]
     search_fields = [
-        "category",
-    ]
-
-class IssueBillAdmin(admin.ModelAdmin):
-    inlines = (IssueOrderAdmin, )
-    list_display = [
-        "bill_no",
-        "issued_by",
-        "issued_at",
+        "item",
     ]
 
 class UnitGroupAdmin(admin.ModelAdmin):
@@ -95,4 +86,4 @@ admin.site.register( UnitGroup, UnitGroupAdmin ),
 admin.site.register( Unit, UnitAdmin ),
 admin.site.register( Item, ItemAdmin ),
 admin.site.register( PurchaseBill, PurchaseBillAdmin ),
-admin.site.register( IssueBill, IssueBillAdmin ),
+admin.site.register( IssueBill ),

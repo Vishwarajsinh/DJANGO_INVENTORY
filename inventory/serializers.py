@@ -60,19 +60,13 @@ class PurchaseBillSerializer(serializers.ModelSerializer):
             "bill_items",
         ]
 
-class IssueOrderItemSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = IssueOrderItem
-        fields = '__all__'
-
 class IssueBillSerializer(serializers.ModelSerializer):
-    issue_items = IssueOrderItemSerializer(many = True, read_only=True)
-
     class Meta:
         model = IssueBill
         fields = [
             "bill_no",
-            "issued_by",
+            "item",
+            "id",
+            "quantity",
             "issued_at",
-            "issue_items",
         ]
