@@ -44,7 +44,6 @@ class PurchaseOrderItemSerializer(serializers.ModelSerializer):
         fields = [
             "bill_no",
             "item",
-            "item.category_id",
             "quantity",
             "mrp_per_unit",
         ]
