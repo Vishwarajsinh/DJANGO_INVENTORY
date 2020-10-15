@@ -19,7 +19,7 @@ class ItemAdmin(admin.ModelAdmin):
 class PurchaseOrderAdmin(admin.TabularInline):
     model = PurchaseOrderItem
     list_display = [
-        "bill_no", "category", "sub_category",
+        "bill_no", "item", "sub_category",
         "quantity", "unit_group", "unit",
         "mrp_per_unit", "supplier_name", "purchased_at",
     ]

@@ -67,13 +67,13 @@ class PurchaseBill(models.Model):
 
 class PurchaseOrderItem(models.Model):
     bill_no = models.ForeignKey(PurchaseBill, on_delete=models.CASCADE, related_name = "bill_items")
-    category = models.ForeignKey(Item, on_delete=models.CASCADE, null=False, blank=False)
+    item = models.ForeignKey(Item, on_delete=models.CASCADE, null=False, blank=False)
     quantity = models.IntegerField()
     mrp_per_unit = models.IntegerField(null=False, blank=False)
     
 
     def __str__(self):
-        return self.category.name
+        return self.item.name
 
 # autogenerate issue bill no
 def issue_bill_number():
@@ -110,7 +110,7 @@ class IssueBill(models.Model):
 def update_item_stock(sender, **kwargs):
     po_item = kwargs['instance']
     if po_item.pk:
-        Item.objects.filter(pk = po_item.category_id).update(current_stock = F('current_stock') + po_item.quantity)
+        Item.objects.filter(pk = po_item.item_id).update(current_stock = F('current_stock') + po_item.quantity)
         
 
 @receiver(post_save, sender = IssueBill, dispatch_uid = "issue_item_stock")
