@@ -62,7 +62,6 @@ class IssueBillAdmin(admin.ModelAdmin):
         "bill_no",
         "item",
         "quantity",
-        "issued_by",
         "issued_at",   
     ]
     list_filter = [
@@ -86,4 +85,4 @@ admin.site.register( UnitGroup, UnitGroupAdmin ),
 admin.site.register( Unit, UnitAdmin ),
 admin.site.register( Item, ItemAdmin ),
 admin.site.register( PurchaseBill, PurchaseBillAdmin ),
-admin.site.register( IssueBill ),
+admin.site.register( IssueBill, IssueBillAdmin ),
